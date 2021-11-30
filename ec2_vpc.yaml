@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Create EC2 instance and VPC, Subnet, SecurityGroup.
+Parameters:
+  InstanceType:
+    Type: String
+    Default: t2.micro
+  AMIID:
+    Type: String
+    Default: ami-0404778e217f54308
+Resources:
+  SampleVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+  FrontendSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.1.0/24
+      VpcId: !Ref SampleVPC
+      MapPublicIpOnLaunch: "true"
+      Tags:
+        - Key: Name
+          Value: SampleVPC-FrontendSubnet
+  FrontendSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: For webServer Use
+      VpcId: !Ref SampleVPC
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          FromPort: 80
+          IpProtocol: tcp
+          ToPort: 80
+  WebServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: !Ref InstanceType
+      ImageId: ami-0404778e217f54308
+      SubnetId: !Ref FrontendSubnet
+      SecurityGroupIds:
+        - !Ref FrontendSecurityGroup
+Outputs:
+  WebServerPublicIP:
+    Value: !GetAtt WebServer.PublicIp

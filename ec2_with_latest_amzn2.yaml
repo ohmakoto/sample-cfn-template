@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+  Create EC2 with specified subnet, security group.
+  AMI is latest Amazon Linux2.
+Parameters:
+  SubnetId:
+    Type: String
+  SecurityGroupId:
+    Type: String
+  AMI:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+Resources:
+  WebServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: !Ref AMI
+      SubnetId: !Ref SubnetId
+      SecurityGroupIds:
+        - !Ref SecurityGroupId

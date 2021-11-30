@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create EC2 with specified subnet, security group.
+Parameters:
+  SubnetId:
+    Type: String
+  SecurityGroupId:
+    Type: String
+Resources:
+  WebServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-0404778e217f54308
+      SubnetId: !Ref SubnetId
+      SecurityGroupIds:
+        - !Ref SecurityGroupId

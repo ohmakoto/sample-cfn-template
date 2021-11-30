@@ -1,0 +1,15 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Create EC2 with VPC Stack.
+Parameters:
+  VPCStackName:
+    Type: String
+Resources:
+  WebServer:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-0404778e217f54308
+      SubnetId:
+        Fn::ImportValue: !Sub "${VPCStackName}-SubnetId"
+      SecurityGroupIds:
+        - Fn::ImportValue: !Sub "${VPCStackName}-SecurityGroupId"

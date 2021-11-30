@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  [Output]
+  Create VPC and Subnet, SecurityGroup with Internet Access.
+Resources:
+  SampleVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+  FrontendSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.1.0/24
+      VpcId: !Ref SampleVPC
+      Tags:
+        - Key: Name
+          Value: SampleVPC-FrontendSubnet
+  FrontendSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: For webServer Use
+      VpcId: !Ref SampleVPC
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          FromPort: 80
+          IpProtocol: tcp
+          ToPort: 80
+Outputs:
+  VPCId:
+    Value: !Ref SampleVPC
+  SubnetId:
+    Value: !Ref FrontendSubnet
+  SecurityGroupId:
+    Value: !Ref FrontendSecurityGroup
