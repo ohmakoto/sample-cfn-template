@@ -35,7 +35,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: !Ref InstanceType
-      ImageId: ami-0404778e217f54308
+      ImageId: !Ref AMIID
       SubnetId: !Ref FrontendSubnet
       SecurityGroupIds:
         - !Ref FrontendSecurityGroup
