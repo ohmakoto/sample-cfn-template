@@ -6,7 +6,7 @@ Parameters:
     Default: t2.micro
   AMIID:
     Type: AWS::EC2::Image::Id
-    Default: ami-0404778e217f54308
+    Default: ami-0f36dcfcc94112ea1
   SubnetId:
     Type: String
     Default: subnet-08f0feea861254e3e

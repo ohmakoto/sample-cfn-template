@@ -7,8 +7,8 @@ Resources:
   WebServer:
     Type: AWS::EC2::Instance
     Properties:
-      InstanceType: t2.micro
-      ImageId: ami-0404778e217f54308
+      InstanceType: t2.small
+      ImageId: ami-0f36dcfcc94112ea1
       SubnetId:
         Fn::ImportValue: !Sub "${VPCStackName}-SubnetId"
       SecurityGroupIds:
